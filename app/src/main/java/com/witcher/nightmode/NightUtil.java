@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 
 public class NightUtil {
 
+    public static final boolean ANIM = true;
+
     public static boolean isNightMode(Context context) {
         SharedPreferences sp = context.getSharedPreferences("test_night_mode", Context.MODE_PRIVATE);
         return sp.getBoolean("nightmode", false);

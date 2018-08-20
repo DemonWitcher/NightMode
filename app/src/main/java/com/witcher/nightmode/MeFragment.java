@@ -1,8 +1,13 @@
 package com.witcher.nightmode;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -55,6 +60,9 @@ public class MeFragment extends Fragment{
     }
 
     private void nightMode(){
+        if(NightUtil.ANIM){
+            showAnimation();
+        }
         boolean isNightMode = NightUtil.isNightMode(activity);
         NightUtil.setNightMode(activity,!isNightMode);
         //当前activityUI切换
@@ -68,6 +76,7 @@ public class MeFragment extends Fragment{
 //        activity.recreate();
         MainActivity mainActivity = (MainActivity) activity;
         mainActivity.notifyUI();
+
     }
 
     public void notifyUI() {
@@ -86,5 +95,39 @@ public class MeFragment extends Fragment{
         rlBg.setBackgroundResource(allBg.resourceId);
         rlNightBg.setBackgroundResource(viewBg.resourceId);
     }
-
+    private Bitmap getCacheBitmapFromView(View view) {
+        final boolean drawingCacheEnabled = true;
+        view.setDrawingCacheEnabled(drawingCacheEnabled);
+        view.buildDrawingCache(drawingCacheEnabled);
+        final Bitmap drawingCache = view.getDrawingCache();
+        Bitmap bitmap;
+        if (drawingCache != null) {
+            bitmap = Bitmap.createBitmap(drawingCache);
+            view.setDrawingCacheEnabled(false);
+        } else {
+            bitmap = null;
+        }
+        return bitmap;
+    }
+    private void showAnimation() {
+        final View decorView = activity.getWindow().getDecorView();
+        Bitmap cacheBitmap = getCacheBitmapFromView(decorView);
+        if (decorView instanceof ViewGroup && cacheBitmap != null) {
+            final View view = new View(activity);
+            view.setBackgroundDrawable(new BitmapDrawable(getResources(), cacheBitmap));
+            ViewGroup.LayoutParams layoutParam = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+            ((ViewGroup) decorView).addView(view, layoutParam);
+            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "alpha", 1f, 0f);
+            objectAnimator.setDuration(300);
+            objectAnimator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    ((ViewGroup) decorView).removeView(view);
+                }
+            });
+            objectAnimator.start();
+        }
+    }
 }
