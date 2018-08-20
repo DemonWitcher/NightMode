@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_bg"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/all_bg_color">
 
     <TextView
         android:id="@+id/tv_content"
@@ -9,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="商品"
-        android:textColor="#000000"
+        android:textColor="?attr/tv_color"
         android:textSize="32sp" />
 
     <TextView
@@ -20,6 +22,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="跳转去详情"
-        android:textColor="#000000"
+        android:textColor="?attr/tv_color"
         android:textSize="32sp" />
 </RelativeLayout>

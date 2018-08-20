@@ -1,17 +1,21 @@
 package com.witcher.nightmode;
 
+import android.content.res.Resources;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     TextView tv1,tv2,tv3;
     FrameLayout flContent;
+    LinearLayout llBottom;
 
     MainFragment mainFragment;
     ShopFragment shopFragment;
@@ -20,6 +24,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(NightUtil.isNightMode(this)){
+            setTheme(R.style.NightTheme);
+        }else{
+            setTheme(R.style.DayTheme);
+        }
         setContentView(R.layout.activity_main);
 
         initView();
@@ -44,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv1 = findViewById(R.id.tv1);
         tv2 = findViewById(R.id.tv2);
         tv3 = findViewById(R.id.tv3);
+        llBottom = findViewById(R.id.ll_bottom);
         flContent = findViewById(R.id.fl_content);
         tv1.setOnClickListener(this);
         tv2.setOnClickListener(this);
@@ -76,4 +86,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             switchFg(2);
         }
     }
+
+    public void notifyUI(){
+        mainFragment.notifyUI();
+        shopFragment.notifyUI();
+        meFragment.notifyUI();
+        notifyUIMyself();
+    }
+
+    private void notifyUIMyself(){
+        TypedValue allBg = new TypedValue();
+        TypedValue tvColor = new TypedValue();
+
+        Resources.Theme theme = getTheme();
+        theme.resolveAttribute(R.attr.tv_color,tvColor,true);
+        theme.resolveAttribute(R.attr.all_bg_color,allBg,true);
+
+        tv1.setTextColor(getResources().getColor(tvColor.resourceId));
+        tv2.setTextColor(getResources().getColor(tvColor.resourceId));
+        tv3.setTextColor(getResources().getColor(tvColor.resourceId));
+        llBottom.setBackgroundResource(allBg.resourceId);
+    }
+
 }

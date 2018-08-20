@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="all_bg_color" format="color" />
+    <attr name="view_bg_color" format="color" />
+    <attr name="tv_color" format="color" />
+    <attr name="divider_color" format="color" />
+</resources>
