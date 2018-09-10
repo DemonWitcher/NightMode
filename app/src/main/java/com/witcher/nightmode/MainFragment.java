@@ -70,9 +70,9 @@ public class MainFragment extends Fragment {
         try {
             Field declaredField = RecyclerView.class.getDeclaredField("mRecycler");
             declaredField.setAccessible(true);
-            Method declaredMethod = RecyclerView.Recycler.class.getDeclaredMethod("clear", null);
+            Method declaredMethod = RecyclerView.Recycler.class.getDeclaredMethod("clear");
             declaredMethod.setAccessible(true);
-            declaredMethod.invoke(declaredField.get(rv), null);
+            declaredMethod.invoke(declaredField.get(rv));
             RecyclerView.RecycledViewPool recycledViewPool = rv.getRecycledViewPool();
             recycledViewPool.clear();
         } catch (Exception e) {
