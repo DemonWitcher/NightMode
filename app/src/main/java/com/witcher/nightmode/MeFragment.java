@@ -9,9 +9,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +16,15 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class MeFragment extends Fragment{
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+public class MeFragment extends Fragment {
 
     private Activity activity;
-    private TextView tvMode,tvMe,tvNightTitle;
-    private RelativeLayout rlBg,rlNightBg;
+    private TextView tvMode, tvMe, tvNightTitle;
+    private RelativeLayout rlBg, rlNightBg;
 
     @Override
     public void onAttach(Context context) {
@@ -39,7 +40,7 @@ public class MeFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fg_me,container,false);
+        View view = inflater.inflate(R.layout.fg_me, container, false);
         tvMode = view.findViewById(R.id.tv_mode);
         tvMe = view.findViewById(R.id.tv_title);
         tvNightTitle = view.findViewById(R.id.tv_night_title);
@@ -51,25 +52,25 @@ public class MeFragment extends Fragment{
                 nightMode();
             }
         });
-        if(NightUtil.isNightMode(activity)){
+        if (NightUtil.isNightMode(activity)) {
             tvMode.setText("关闭");
-        }else{
+        } else {
             tvMode.setText("开启");
         }
         return view;
     }
 
-    private void nightMode(){
-        if(NightUtil.ANIM){
+    private void nightMode() {
+        if (NightUtil.ANIM) {
             showAnimation();
         }
         boolean isNightMode = NightUtil.isNightMode(activity);
-        NightUtil.setNightMode(activity,!isNightMode);
+        NightUtil.setNightMode(activity, !isNightMode);
         //当前activityUI切换
-        if(isNightMode){
+        if (isNightMode) {
             activity.setTheme(R.style.DayTheme);
             tvMode.setText("开启");
-        }else{
+        } else {
             activity.setTheme(R.style.NightTheme);
             tvMode.setText("关闭");
         }
@@ -85,9 +86,9 @@ public class MeFragment extends Fragment{
         TypedValue tvColor = new TypedValue();
 
         Resources.Theme theme = activity.getTheme();
-        theme.resolveAttribute(R.attr.tv_color,tvColor,true);
-        theme.resolveAttribute(R.attr.all_bg_color,allBg,true);
-        theme.resolveAttribute(R.attr.view_bg_color,viewBg,true);
+        theme.resolveAttribute(R.attr.tv_color, tvColor, true);
+        theme.resolveAttribute(R.attr.all_bg_color, allBg, true);
+        theme.resolveAttribute(R.attr.view_bg_color, viewBg, true);
 
         tvMode.setTextColor(getResources().getColor(tvColor.resourceId));
         tvMe.setTextColor(getResources().getColor(tvColor.resourceId));
@@ -95,6 +96,7 @@ public class MeFragment extends Fragment{
         rlBg.setBackgroundResource(allBg.resourceId);
         rlNightBg.setBackgroundResource(viewBg.resourceId);
     }
+
     private Bitmap getCacheBitmapFromView(View view) {
         final boolean drawingCacheEnabled = true;
         view.setDrawingCacheEnabled(drawingCacheEnabled);
@@ -109,6 +111,7 @@ public class MeFragment extends Fragment{
         }
         return bitmap;
     }
+
     private void showAnimation() {
         final View decorView = activity.getWindow().getDecorView();
         Bitmap cacheBitmap = getCacheBitmapFromView(decorView);

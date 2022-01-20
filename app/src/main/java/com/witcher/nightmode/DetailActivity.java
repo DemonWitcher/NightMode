@@ -1,16 +1,17 @@
 package com.witcher.nightmode;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class DetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(NightUtil.isNightMode(this)){
+        if (NightUtil.isNightMode(this)) {
             setTheme(R.style.NightTheme);
-        }else{
+        } else {
             setTheme(R.style.DayTheme);
         }
         setContentView(R.layout.activity_detail);

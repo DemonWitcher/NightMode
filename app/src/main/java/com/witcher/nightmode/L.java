@@ -4,8 +4,8 @@ import android.util.Log;
 
 public class L {
 
-    public static void i(String i){
-        Log.i("witcher",i);
+    public static void i(String i) {
+        Log.i("witcher", i);
     }
 
 }
