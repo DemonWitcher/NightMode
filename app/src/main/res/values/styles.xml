@@ -16,6 +16,7 @@
         <item name="view_bg_color">@color/view_bg_color_day</item>
         <item name="tv_color">@color/tv_color_day</item>
         <item name="divider_color">@color/divider_color_day</item>
+        <item name="shop_icon">@mipmap/iv_shop_day</item>
     </style>
 
     <style name="NightTheme" parent="AppTheme">
@@ -23,5 +24,6 @@
         <item name="view_bg_color">@color/view_bg_color_night</item>
         <item name="tv_color">@color/tv_color_night</item>
         <item name="divider_color">@color/divider_color_night</item>
+        <item name="shop_icon">@mipmap/iv_shop_night</item>
     </style>
 </resources>

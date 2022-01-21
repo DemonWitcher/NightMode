@@ -5,11 +5,21 @@
     android:background="?attr/all_bg_color">
 
     <TextView
+        android:id="@+id/tv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="商品详情"
         android:textColor="?attr/tv_color"
         android:textSize="32sp" />
+
+    <ImageView
+        android:layout_above="@+id/tv1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="?attr/shop_icon"
+        />
 
 </RelativeLayout>

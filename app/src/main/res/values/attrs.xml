@@ -4,4 +4,6 @@
     <attr name="view_bg_color" format="color" />
     <attr name="tv_color" format="color" />
     <attr name="divider_color" format="color" />
+
+    <attr name="shop_icon" format="reference" />
 </resources>
